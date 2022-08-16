@@ -12,6 +12,9 @@ add_subdirectory(libs/raylib)
 add_executable(${PROJECT_NAME} src/main.cpp
                                src/paddle.cpp
                                src/ball.cpp
+                               src/game.cpp
+                               src/gameRules.cpp
+                               src/update.cpp
 )
 target_include_directories(${PROJECT_NAME} BEFORE PRIVATE include/)
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
