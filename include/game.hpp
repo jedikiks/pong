@@ -14,15 +14,16 @@ class Game {
     public:
         Game ();
 
+        void gameInterrupt (Paddle& leftPaddle, Paddle& rightPaddle, const char* text);
         bool isPaused();
+        void pause();
+        void unpause();
         void addScore(Player player);
         void subScore(Player player);
         void resetScores();
-        void pause();
-        void unpause();
         int getScore(); 
         void Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2);
-        void winDraw(Paddle& paddle1, Paddle& paddle2, const char* text);
+        void Draw(Paddle& paddle1, Paddle& paddle2, const char* text);
         void Draw();
 };
 #endif

@@ -25,6 +25,22 @@ bool Game::isPaused() {
     }
 }
 
+void Game::gameInterrupt (Paddle& leftPaddle, Paddle& rightPaddle, const char* text) {
+    Game::pause();
+    while (Game::isPaused() == true) {
+        Game::Draw(leftPaddle, rightPaddle, text);
+    
+        //FIXME: ESC quits but produces segmentation fault
+        if(WindowShouldClose()) {
+            CloseWindow();
+        }
+
+        if (IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_TAB)) {
+            Game::unpause(); 
+        } 
+    }
+}
+
 void Game::addScore (Player player) {
     if (player == 1) {
         m_player1_score++;
@@ -60,7 +76,7 @@ void Game::Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2) {
     EndDrawing();
 }
 
-void Game::winDraw(Paddle& paddle1, Paddle& paddle2, const char* text){
+void Game::Draw(Paddle& paddle1, Paddle& paddle2, const char* text){
     BeginDrawing();
         ClearBackground(BLACK);
         DrawFPS(10, 10);

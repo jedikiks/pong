@@ -3,6 +3,7 @@
 #include "../include/types.hpp"
 #include "../include/game.hpp"
 #include "../include/gameRules.hpp"
+#include <raylib.h>
 
 
 void gameRules::checkCollision(Ball& ball, Paddle& paddle, Player player) {
@@ -25,24 +26,16 @@ void gameRules::checkCollision(Ball& ball, Paddle& paddle, Player player) {
 void gameRules::checkWinner(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, const char* winnerText) {
     if (ball.Ball::getX() > GetScreenWidth()) {
         game.Game::addScore(1);
-        winnerText = "Player 1 wins\n Deez";
+        winnerText = "Player 1 wins~!";
         if (winnerText) {
-            while (IsKeyDown(KEY_ENTER) == false) {
-                game.Game::winDraw(leftPaddle, rightPaddle, winnerText);
-                ball.Ball::setSpeedX(0);
-                ball.Ball::setSpeedY(0);
-            }
+            game.Game::gameInterrupt(leftPaddle, rightPaddle, winnerText);
         }
         ball.Ball::reset();
     } else if (ball.Ball::getX() < 0) {
         game.Game::addScore(2);
         winnerText = "Player 2 wins~!";
         if (winnerText) {
-            while (IsKeyDown(KEY_ENTER) == false) {
-                game.Game::winDraw(leftPaddle, rightPaddle, winnerText);
-                ball.Ball::setSpeedX(0);
-                ball.Ball::setSpeedY(0);
-            }
+            game.Game::gameInterrupt(leftPaddle, rightPaddle, winnerText);
         }
         ball.Ball::reset();
     }

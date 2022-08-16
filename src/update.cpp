@@ -6,28 +6,13 @@
 #include "../include/gameRules.hpp"
 #include "../include/update.hpp"
 
+
 void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, const char* winnerText) {
-    if (IsKeyDown(KEY_TAB) && game.Game::isPaused() == false) {
-        game.Game::pause();
+
+    if (IsKeyPressed(KEY_TAB) && game.Game::isPaused() == false) {
+        game.Game::gameInterrupt(leftPaddle, rightPaddle, "Paused"); 
     }
-     
-    while (game.Game::isPaused() == true) {
-        BeginDrawing();
-        ClearBackground(BLACK);
-        DrawFPS(10, 10);
-        SetWindowState(FLAG_VSYNC_HINT);
-     
-        leftPaddle.Paddle::Draw();
-        rightPaddle.Paddle::Draw();
-     
-        DrawText("Paused", GetScreenWidth() / 2 - MeasureText("Paused", 60) / 2, GetScreenHeight() / 2 - 30, 60, YELLOW);
-        EndDrawing();
-     
-        if (IsKeyDown(KEY_ENTER)) {
-            game.Game::unpause(); 
-        } 
-    }
-     
+
     ball.Ball::moveX();
     ball.Ball::moveY();
      
