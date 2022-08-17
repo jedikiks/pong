@@ -2,9 +2,11 @@
 #include "../include/paddle.hpp"
 #include "../include/types.hpp"
 
-Paddle::Paddle(float x, float y, int width, int height, int speed, Color color) {
+Paddle::Paddle(float x, float y, int width, int height, float speed, Color color) {
     m_x = x;
     m_y = y;
+    def_m_x = x;
+    def_m_y = y;
     m_width = width;
     m_height = height;
     m_speed = speed;
@@ -29,4 +31,9 @@ void Paddle::keyPress(Player player) {
 
 void Paddle::Draw() {
             DrawRectangleRec(Paddle::getRectangle(), m_color);
+}
+
+void Paddle::reset() {
+    m_x = def_m_x;
+    m_y = def_m_y;
 }

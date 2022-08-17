@@ -58,19 +58,16 @@ Vector2 Ball::getCenter() {
 }
 
 int Ball::getRandomDir() {
-    switch (GetRandomValue(0, 1)) {
-        case 0: 
-            return -1;
-            break;
-        case 1:
-            return 1;
-            break;
+    if (GetRandomValue(0, 1) == 0) {
+        return -1;
+    } else {
+        return 1;
     }
-    
 }
+
 void Ball::reset() {
     m_x = def_m_x;
     m_y = def_m_y;
     m_speedX = def_m_speedX * getRandomDir() + GetRandomValue(1, 200); 
-    m_speedY = def_m_speedY * getRandomDir() + GetRandomValue(1, 30); 
+    m_speedY = def_m_speedY * getRandomDir() + GetRandomValue(1, 200); 
 }

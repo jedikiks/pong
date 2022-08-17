@@ -25,5 +25,6 @@ class Game {
         void Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2);
         void Draw(Paddle& paddle1, Paddle& paddle2, const char* text);
         void Draw();
+        void reset();
 };
 #endif

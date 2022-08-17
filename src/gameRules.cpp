@@ -30,13 +30,13 @@ void gameRules::checkWinner(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& 
         if (winnerText) {
             game.Game::gameInterrupt(leftPaddle, rightPaddle, winnerText);
         }
-        ball.Ball::reset();
+        game.Game::reset();
     } else if (ball.Ball::getX() < 0) {
         game.Game::addScore(2);
         winnerText = "Player 2 wins~!";
         if (winnerText) {
             game.Game::gameInterrupt(leftPaddle, rightPaddle, winnerText);
         }
-        ball.Ball::reset();
+        game.Game::reset();
     }
 }
