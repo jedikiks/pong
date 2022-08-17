@@ -65,10 +65,10 @@ void Game::resetScores () {
 
 
 //FIXME: need to add refs to parameters
-void Game::reset() {
+void Game::reset(Ball& ball, Paddle& paddle1, Paddle& paddle2) {
     ball.Ball::reset();
-    leftPaddle.Paddle::reset();
-    rightPaddle.Paddle::reset();
+    paddle1.Paddle::reset();
+    paddle2.Paddle::reset();
 }
 
 
