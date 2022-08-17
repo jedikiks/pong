@@ -2,6 +2,7 @@
 #include "../include/game.hpp"
 #include "../include/ball.hpp"
 #include "../include/paddle.hpp"
+#include <string>
 
 Game::Game () {
     m_ispaused = false;
@@ -63,8 +64,6 @@ void Game::resetScores () {
     m_player2_score = 0;
 }
 
-
-//FIXME: need to add refs to parameters
 void Game::reset(Ball& ball, Paddle& paddle1, Paddle& paddle2) {
     ball.Ball::reset();
     paddle1.Paddle::reset();
@@ -76,7 +75,8 @@ void Game::Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2) {
     BeginDrawing();
         ClearBackground(BLACK);
         SetWindowState(FLAG_VSYNC_HINT);
-    
+        Game::drawPlayerScores();
+
         ball.Ball::Draw();
         paddle1.Paddle::Draw();
         paddle2.Paddle::Draw();
@@ -87,6 +87,7 @@ void Game::Draw(Paddle& paddle1, Paddle& paddle2, const char* text, Color color)
     BeginDrawing();
         ClearBackground(BLACK);
         SetWindowState(FLAG_VSYNC_HINT);
+        Game::drawPlayerScores();
 
         DrawText(text, GetScreenWidth() / 2 - MeasureText(text, 60) / 2, GetScreenHeight() / 2 - 30, 60, color);
         paddle1.Paddle::Draw();
@@ -98,5 +99,16 @@ void Game::Draw(){
     BeginDrawing();
         ClearBackground(BLACK);
         SetWindowState(FLAG_VSYNC_HINT);
+        Game::drawPlayerScores();
     EndDrawing();
+}
+
+void Game::drawPlayerScores() {
+    std::string p1s { std::to_string(m_player1_score) };
+    std::string p2s { std::to_string(m_player2_score) };
+    const char* player1Score = p1s.c_str();
+    const char* player2Score = p2s.c_str();
+
+    DrawText(player1Score, 10, 10, 30, BLUE);
+    DrawText(player2Score, GetScreenWidth() - 20, 10, 30, PINK);
 }
