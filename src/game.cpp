@@ -25,10 +25,10 @@ bool Game::isPaused() {
     }
 }
 
-void Game::gameInterrupt (Paddle& leftPaddle, Paddle& rightPaddle, const char* text) {
+void Game::gameInterrupt (Paddle& leftPaddle, Paddle& rightPaddle, const char* text, Color color) {
     Game::pause();
     while (Game::isPaused() == true) {
-        Game::Draw(leftPaddle, rightPaddle, text);
+        Game::Draw(leftPaddle, rightPaddle, text, color);
     
         //FIXME: ESC quits but produces segmentation fault
         if(WindowShouldClose()) {
@@ -75,7 +75,6 @@ void Game::reset(Ball& ball, Paddle& paddle1, Paddle& paddle2) {
 void Game::Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2) {
     BeginDrawing();
         ClearBackground(BLACK);
-        DrawFPS(10, 10);
         SetWindowState(FLAG_VSYNC_HINT);
     
         ball.Ball::Draw();
@@ -84,13 +83,12 @@ void Game::Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2) {
     EndDrawing();
 }
 
-void Game::Draw(Paddle& paddle1, Paddle& paddle2, const char* text){
+void Game::Draw(Paddle& paddle1, Paddle& paddle2, const char* text, Color color){
     BeginDrawing();
         ClearBackground(BLACK);
-        DrawFPS(10, 10);
         SetWindowState(FLAG_VSYNC_HINT);
 
-        DrawText(text, GetScreenWidth() / 2 - MeasureText(text, 60) / 2, GetScreenHeight() / 2 - 30, 60, YELLOW);
+        DrawText(text, GetScreenWidth() / 2 - MeasureText(text, 60) / 2, GetScreenHeight() / 2 - 30, 60, color);
         paddle1.Paddle::Draw();
         paddle2.Paddle::Draw();
     EndDrawing();
@@ -99,7 +97,6 @@ void Game::Draw(Paddle& paddle1, Paddle& paddle2, const char* text){
 void Game::Draw(){
     BeginDrawing();
         ClearBackground(BLACK);
-        DrawFPS(10, 10);
         SetWindowState(FLAG_VSYNC_HINT);
     EndDrawing();
 }

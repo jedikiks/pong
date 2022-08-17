@@ -28,14 +28,14 @@ void gameRules::checkWinner(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& 
         game.Game::addScore(1);
         winnerText = "Player 1 wins~!";
         if (winnerText) {
-            game.Game::gameInterrupt(leftPaddle, rightPaddle, winnerText);
+            game.Game::gameInterrupt(leftPaddle, rightPaddle, winnerText, BLUE);
         }
         game.Game::reset(ball, leftPaddle, rightPaddle);
     } else if (ball.Ball::getX() < 0) {
         game.Game::addScore(2);
         winnerText = "Player 2 wins~!";
         if (winnerText) {
-            game.Game::gameInterrupt(leftPaddle, rightPaddle, winnerText);
+            game.Game::gameInterrupt(leftPaddle, rightPaddle, winnerText, PINK);
         }
         game.Game::reset(ball, leftPaddle, rightPaddle);
     }

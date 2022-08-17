@@ -10,7 +10,7 @@
 void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, const char* winnerText) {
 
     if (IsKeyPressed(KEY_TAB) && game.Game::isPaused() == false) {
-        game.Game::gameInterrupt(leftPaddle, rightPaddle, "Paused"); 
+        game.Game::gameInterrupt(leftPaddle, rightPaddle, "Paused", YELLOW); 
     }
 
     ball.Ball::moveX();

@@ -14,7 +14,7 @@ class Game {
     public:
         Game ();
 
-        void gameInterrupt (Paddle& leftPaddle, Paddle& rightPaddle, const char* text);
+        void gameInterrupt (Paddle& leftPaddle, Paddle& rightPaddle, const char* text, Color color);
         bool isPaused();
         void pause();
         void unpause();
@@ -23,7 +23,7 @@ class Game {
         void resetScores();
         int getScore(); 
         void Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2);
-        void Draw(Paddle& paddle1, Paddle& paddle2, const char* text);
+        void Draw(Paddle& paddle1, Paddle& paddle2, const char* text, Color color);
         void Draw();
         void reset(Ball& ball, Paddle& paddle1, Paddle& paddle2);
 };

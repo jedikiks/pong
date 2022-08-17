@@ -14,8 +14,8 @@ int main() {
     SetWindowPosition(GetScreenWidth() / 2, GetScreenHeight() / 2);
     Game game {};
     Ball ball {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f, 5.0f, 350.0f, 300.0f, WHITE};
-    Paddle leftPaddle {20, GetScreenHeight() / 2.0f, 10, 100, 700.0f, WHITE};
-    Paddle rightPaddle {GetScreenWidth() - 20.0f, GetScreenHeight() / 2.0f, 10, 100, 700.0f, WHITE};
+    Paddle leftPaddle {20, GetScreenHeight() / 2.0f, 10, 100, 700.0f, BLUE};
+    Paddle rightPaddle {GetScreenWidth() - 20.0f, GetScreenHeight() / 2.0f, 10, 100, 700.0f, PINK};
 
     while (!WindowShouldClose()) {
         Update::update(game, ball, leftPaddle, rightPaddle, winnerText);
