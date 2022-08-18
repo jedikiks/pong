@@ -19,8 +19,8 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
 
             ball.Ball::checkYCollision();
 
-            ai.AI::aiMove(leftPaddle, ball);
-            ai.AI::aiMove(rightPaddle, ball);
+            ai.AI::aiMoveDemo(leftPaddle, ball, 1);
+            ai.AI::aiMoveDemo(rightPaddle, ball, 2);
             //rightPaddle.Paddle::keyPress(2);
 
             gameRules::checkCollision(ball, rightPaddle, 2);
