@@ -7,6 +7,7 @@
 #include "../include/update.hpp"
 #include "../include/ai.hpp"
 #include "../include/screenManager.hpp"
+#include "../include/audio.hpp"
 
 
 int main() {
@@ -14,17 +15,20 @@ int main() {
 
     InitWindow(800, 640, "Pong");
     SetWindowPosition(GetScreenWidth() / 2, GetScreenHeight() / 2);
+    InitAudioDevice();
+
     GameScreen currentScreen = TITLE;
     Game game {};
+    Audio audio {LoadSound("../include/coin.wav")};
     Ball ball {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f, 5.0f, 350.0f, 300.0f, WHITE};
     Paddle leftPaddle {20, GetScreenHeight() / 2.0f, 10, 100, 700.0f, BLUE};
     Paddle rightPaddle {GetScreenWidth() - 20.0f, GetScreenHeight() / 2.0f, 10, 100, 700.0f, PINK};
     AI ai {};
 
     while (!WindowShouldClose()) {
-        Update::update(game, ball, leftPaddle, rightPaddle, ai, currentScreen, winnerText);
-        game.Game::Draw(ball, leftPaddle, rightPaddle, currentScreen);
+        Update::update(game, ball, leftPaddle, rightPaddle, ai, currentScreen, audio, winnerText);
 
+        game.Game::Draw(ball, leftPaddle, rightPaddle, currentScreen);
     }
 
     CloseWindow();

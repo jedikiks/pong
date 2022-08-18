@@ -3,11 +3,14 @@
 #include "../include/types.hpp"
 #include "../include/game.hpp"
 #include "../include/gameRules.hpp"
+#include "../include/audio.hpp"
 #include <raylib.h>
 
 
-void gameRules::checkCollision(Ball& ball, Paddle& paddle, Player player) {
+void gameRules::checkCollision(Ball& ball, Paddle& paddle, Player player, Audio& audio) {
     if (CheckCollisionCircleRec(ball.Ball::getCenter(), ball.Ball::getRadius(), paddle.Paddle::getRectangle())) {
+        audio.Audio::playBallFx();
+
         if (player == 1) {
             if (ball.Ball::getSpeedX() < 0) {
                 ball.Ball::setSpeedX(ball.Ball::getSpeedX() * -1.1);

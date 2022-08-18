@@ -5,7 +5,9 @@
 #include "../include/types.hpp"
 #include "../include/ball.hpp"
 #include "../include/paddle.hpp"
-#include "screenManager.hpp"
+#include "../include/screenManager.hpp"
+#include "../include/audio.hpp"
+
 
 class Game {
     private:
@@ -15,6 +17,7 @@ class Game {
     public:
         Game ();
 
+        void gameInterrupt (Paddle& leftPaddle, Paddle& rightPaddle, const char* text, Audio& audio, Color color);
         void gameInterrupt (Paddle& leftPaddle, Paddle& rightPaddle, const char* text, Color color);
         bool isPaused();
         void pause();

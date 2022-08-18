@@ -3,6 +3,7 @@
 #include "../include/ball.hpp"
 #include "../include/paddle.hpp"
 #include "../include/screenManager.hpp"
+#include "../include/audio.hpp"
 #include <string>
 
 Game::Game () {
@@ -24,6 +25,23 @@ bool Game::isPaused() {
         return true;
     } else {
         return false;
+    }
+}
+
+void Game::gameInterrupt (Paddle& leftPaddle, Paddle& rightPaddle, const char* text, Audio& audio, Color color) {
+    Game::pause();
+    audio.Audio::playBallFx();
+    while (Game::isPaused() == true) {
+        Game::Draw(leftPaddle, rightPaddle, text, color);
+    
+        //FIXME: ESC quits but produces segmentation fault
+        if(WindowShouldClose()) {
+            CloseWindow();
+        }
+
+        if (IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_TAB)) {
+            Game::unpause(); 
+        } 
     }
 }
 

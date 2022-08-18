@@ -9,7 +9,7 @@
 #include "../include/screenManager.hpp"
 
 
-void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, AI& ai, GameScreen& currentScreen, const char* winnerText) {
+void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, AI& ai, GameScreen& currentScreen, Audio& audio, const char* winnerText) {
     switch(currentScreen) {
         case TITLE: {
             rightPaddle.Paddle::updateXPosition();
@@ -23,8 +23,8 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
             ai.AI::aiMoveDemo(rightPaddle, ball, 2);
             //rightPaddle.Paddle::keyPress(2);
 
-            gameRules::checkCollision(ball, rightPaddle, 2);
-            gameRules::checkCollision(ball, leftPaddle, 1);
+            gameRules::checkCollision(ball, rightPaddle, 2, audio);
+            gameRules::checkCollision(ball, leftPaddle, 1, audio);
             gameRules::checkWinner(game, ball, leftPaddle, rightPaddle);
 
             if (IsKeyPressed(KEY_ENTER)) {
@@ -35,7 +35,7 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
 
         case GAMEPLAY: {
             if (IsKeyPressed(KEY_TAB) && game.Game::isPaused() == false) {
-                game.Game::gameInterrupt(leftPaddle, rightPaddle, "Paused", YELLOW); 
+                game.Game::gameInterrupt(leftPaddle, rightPaddle, "Paused", audio, YELLOW); 
             }
 
             rightPaddle.Paddle::updateXPosition();
@@ -49,8 +49,8 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
             ai.AI::aiMove(rightPaddle, ball);
             //rightPaddle.Paddle::keyPress(2);
 
-            gameRules::checkCollision(ball, rightPaddle, 2);
-            gameRules::checkCollision(ball, leftPaddle, 1);
+            gameRules::checkCollision(ball, rightPaddle, 2, audio);
+            gameRules::checkCollision(ball, leftPaddle, 1, audio);
 
             gameRules::checkWinner(game, ball, leftPaddle, rightPaddle, winnerText);
         } break;
