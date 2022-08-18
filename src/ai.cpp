@@ -5,9 +5,9 @@
 
 void AI::aiMove (Paddle& paddle, Ball& ball) {
     if (paddle.Paddle::getX() != ball.Ball::getX()) {
-        if (paddle.Paddle::getY() < ball.Ball::getY()) {
+        if ((paddle.Paddle::getY() + paddle.Paddle::getHeight() / 2) < ball.Ball::getY()) {
             paddle.Paddle::setY(paddle.Paddle::getY() + 700.0f * GetFrameTime());
-        } else {
+        } else if ((paddle.Paddle::getY() - paddle.Paddle::getHeight() / 2) >= ball.Ball::getY()){
             paddle.Paddle::setY(paddle.Paddle::getY() - 700.0f * GetFrameTime());
  
         }
