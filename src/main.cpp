@@ -19,7 +19,7 @@ int main() {
 
     GameScreen currentScreen = TITLE;
     Game game {};
-    Audio audio {LoadSound("../include/coin.wav")};
+    Audio audio {LoadSound("../resources/audio/coin.wav")};
     Ball ball {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f, 5.0f, 350.0f, 300.0f, WHITE};
     Paddle leftPaddle {20, GetScreenHeight() / 2.0f, 10, 100, 700.0f, BLUE};
     Paddle rightPaddle {GetScreenWidth() - 20.0f, GetScreenHeight() / 2.0f, 10, 100, 700.0f, PINK};
