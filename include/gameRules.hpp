@@ -9,6 +9,9 @@
 namespace gameRules{
     void checkCollision(Ball& ball, Paddle& paddle, Player player);
     void checkWinner(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, const char* winnerText);
+
+//for demo:
+    void checkWinner(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle);
 }
 
 #endif

@@ -5,6 +5,7 @@
 #include "../include/types.hpp"
 #include "../include/ball.hpp"
 #include "../include/paddle.hpp"
+#include "screenManager.hpp"
 
 class Game {
     private:
@@ -21,7 +22,7 @@ class Game {
         void addScore(Player player);
         void subScore(Player player);
         void resetScores();
-        void Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2);
+        void Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2, GameScreen currentScreen);
         void Draw(Paddle& paddle1, Paddle& paddle2, const char* text, Color color);
         void Draw();
         void drawPlayerScores();

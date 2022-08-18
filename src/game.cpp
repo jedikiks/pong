@@ -2,6 +2,7 @@
 #include "../include/game.hpp"
 #include "../include/ball.hpp"
 #include "../include/paddle.hpp"
+#include "../include/screenManager.hpp"
 #include <string>
 
 Game::Game () {
@@ -71,15 +72,27 @@ void Game::reset(Ball& ball, Paddle& paddle1, Paddle& paddle2) {
 }
 
 
-void Game::Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2) {
+void Game::Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2, GameScreen currentScreen) {
     BeginDrawing();
         ClearBackground(BLACK);
         SetWindowState(FLAG_VSYNC_HINT);
-        Game::drawPlayerScores();
-
-        ball.Ball::Draw();
-        paddle1.Paddle::Draw();
-        paddle2.Paddle::Draw();
+        switch (currentScreen) {
+            case TITLE: {
+                Game::drawPlayerScores();
+                ball.Ball::Draw();
+                paddle1.Paddle::Draw();
+                paddle2.Paddle::Draw();
+                DrawText("Pong", GetScreenWidth() / 2 - MeasureText("Pong", 90) / 2, GetScreenHeight() / 2 - 90, 90, WHITE);
+                DrawText("-- Press Enter to Start -- ", GetScreenWidth() / 2 - MeasureText("-- Press Enter to Start --", 20) / 2, GetScreenHeight() / 2 + 10, 20, WHITE);
+            } break;
+            case GAMEPLAY: {
+                Game::drawPlayerScores();
+                ball.Ball::Draw();
+                paddle1.Paddle::Draw();
+                paddle2.Paddle::Draw();
+            } break;
+            default: break;
+        }
     EndDrawing();
 }
 

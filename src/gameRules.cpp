@@ -40,3 +40,13 @@ void gameRules::checkWinner(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& 
         game.Game::reset(ball, leftPaddle, rightPaddle);
     }
 }
+
+void gameRules::checkWinner(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle) {
+     if (ball.Ball::getX() > GetScreenWidth()) {
+         game.Game::addScore(1);
+         game.Game::reset(ball, leftPaddle, rightPaddle);
+     } else if (ball.Ball::getX() < 0) {
+         game.Game::addScore(2);
+         game.Game::reset(ball, leftPaddle, rightPaddle);
+     }
+ }

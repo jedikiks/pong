@@ -6,9 +6,10 @@
 #include "../include/types.hpp"
 #include "../include/game.hpp"
 #include "../include/ai.hpp"
+#include "../include/screenManager.hpp"
 
 namespace Update{
-    void update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, AI& ai, const char* winnerText);
+    void update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, AI& ai, GameScreen& currentScreen, const char* winnerText);
 }
 
 #endif

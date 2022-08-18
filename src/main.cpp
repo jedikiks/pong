@@ -6,6 +6,7 @@
 #include "../include/gameRules.hpp"
 #include "../include/update.hpp"
 #include "../include/ai.hpp"
+#include "../include/screenManager.hpp"
 
 
 int main() {
@@ -13,6 +14,7 @@ int main() {
 
     InitWindow(800, 640, "Pong");
     SetWindowPosition(GetScreenWidth() / 2, GetScreenHeight() / 2);
+    GameScreen currentScreen = TITLE;
     Game game {};
     Ball ball {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f, 5.0f, 350.0f, 300.0f, WHITE};
     Paddle leftPaddle {20, GetScreenHeight() / 2.0f, 10, 100, 700.0f, BLUE};
@@ -20,8 +22,8 @@ int main() {
     AI ai {};
 
     while (!WindowShouldClose()) {
-        Update::update(game, ball, leftPaddle, rightPaddle, ai, winnerText);
-        game.Game::Draw(ball, leftPaddle, rightPaddle);
+        Update::update(game, ball, leftPaddle, rightPaddle, ai, currentScreen, winnerText);
+        game.Game::Draw(ball, leftPaddle, rightPaddle, currentScreen);
 
     }
 
