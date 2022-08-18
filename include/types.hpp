@@ -3,4 +3,10 @@
 
 typedef int Player;
 
+enum class gameDifficulty {
+    easy,
+    medium,
+    hard,
+};
+
 #endif

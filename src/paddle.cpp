@@ -37,3 +37,11 @@ void Paddle::reset() {
     m_x = def_m_x;
     m_y = def_m_y;
 }
+
+void Paddle::setX(float x) {
+    m_x = x;
+}
+
+void Paddle::setY(float y) {
+    m_y = y;
+}

@@ -109,6 +109,6 @@ void Game::drawPlayerScores() {
     const char* player1Score = p1s.c_str();
     const char* player2Score = p2s.c_str();
 
-    DrawText(player1Score, 10, 10, 30, BLUE);
-    DrawText(player2Score, GetScreenWidth() - 20, 10, 30, PINK);
+    DrawText(player1Score, MeasureText(player1Score, 30), 20, 30, BLUE);
+    DrawText(player2Score, GetScreenWidth() - MeasureText(player2Score, 30) - 10, 20, 30, PINK);
 }

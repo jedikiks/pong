@@ -5,9 +5,11 @@
 #include "../include/game.hpp"
 #include "../include/gameRules.hpp"
 #include "../include/update.hpp"
+#include "../include/ai.hpp"
 
+int getCurrentScreenWidth() {return GetScreenWidth();}
 
-void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, const char* winnerText) {
+void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, AI& ai, const char* winnerText) {
 
     if (IsKeyPressed(KEY_TAB) && game.Game::isPaused() == false) {
         game.Game::gameInterrupt(leftPaddle, rightPaddle, "Paused", YELLOW); 
@@ -19,7 +21,8 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
     ball.Ball::checkYCollision();
      
     leftPaddle.Paddle::keyPress(1);
-    rightPaddle.Paddle::keyPress(2);
+    ai.AI::aiMove(rightPaddle, ball);
+    //rightPaddle.Paddle::keyPress(2);
      
     gameRules::checkCollision(ball, rightPaddle, 2);
     gameRules::checkCollision(ball, leftPaddle, 1);

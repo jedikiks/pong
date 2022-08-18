@@ -5,9 +5,11 @@
 #include "../include/paddle.hpp"
 #include "../include/types.hpp"
 #include "../include/game.hpp"
+#include "../include/ai.hpp"
 
 namespace Update{
-    void update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, const char* winnerText);
+    void update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, AI& ai, const char* winnerText);
+    int getCurrentScreenWidth();
 }
 
 #endif

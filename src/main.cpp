@@ -5,6 +5,7 @@
 #include "../include/game.hpp"
 #include "../include/gameRules.hpp"
 #include "../include/update.hpp"
+#include "../include/ai.hpp"
 
 
 int main() {
@@ -16,9 +17,10 @@ int main() {
     Ball ball {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f, 5.0f, 350.0f, 300.0f, WHITE};
     Paddle leftPaddle {20, GetScreenHeight() / 2.0f, 10, 100, 700.0f, BLUE};
     Paddle rightPaddle {GetScreenWidth() - 20.0f, GetScreenHeight() / 2.0f, 10, 100, 700.0f, PINK};
+    AI ai {};
 
     while (!WindowShouldClose()) {
-        Update::update(game, ball, leftPaddle, rightPaddle, winnerText);
+        Update::update(game, ball, leftPaddle, rightPaddle, ai, winnerText);
         game.Game::Draw(ball, leftPaddle, rightPaddle);
 
     }

@@ -21,6 +21,8 @@ class Paddle {
         Rectangle getRectangle() { return Rectangle {m_x - m_width / 2, m_y - m_height / 2, m_width, m_height}; }
         float getX() {return m_x;}
         float getY() {return m_y;}
+        void setX(float x);
+        void setY(float y);
         float getHeight() {return m_height;}
         float getWidth() {return m_width;}
         void reset();

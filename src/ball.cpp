@@ -68,6 +68,6 @@ int Ball::getRandomDir() {
 void Ball::reset() {
     m_x = def_m_x;
     m_y = def_m_y;
-    m_speedX = def_m_speedX * getRandomDir() + GetRandomValue(1, 200); 
-    m_speedY = def_m_speedY * getRandomDir() + GetRandomValue(1, 200); 
+    m_speedX = (def_m_speedX + GetRandomValue(200, 250)) * getRandomDir(); 
+    m_speedY = (def_m_speedY + GetRandomValue(200, 250)) * getRandomDir(); 
 }
