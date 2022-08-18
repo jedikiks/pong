@@ -28,7 +28,7 @@ class Paddle {
         void reset();
         void Draw();
         void keyPress(Player player); 
-        void updateXPosition() { m_x = GetScreenWidth(); }
+        void updateXPosition() { m_x = (GetScreenWidth() - 20); }
 
 };
 
