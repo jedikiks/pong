@@ -9,7 +9,6 @@
 
 namespace Update{
     void update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, AI& ai, const char* winnerText);
-    int getCurrentScreenWidth();
 }
 
 #endif

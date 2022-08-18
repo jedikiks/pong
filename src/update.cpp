@@ -7,13 +7,14 @@
 #include "../include/update.hpp"
 #include "../include/ai.hpp"
 
-int getCurrentScreenWidth() {return GetScreenWidth();}
 
 void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, AI& ai, const char* winnerText) {
 
     if (IsKeyPressed(KEY_TAB) && game.Game::isPaused() == false) {
         game.Game::gameInterrupt(leftPaddle, rightPaddle, "Paused", YELLOW); 
     }
+
+    rightPaddle.Paddle::updateXPosition();
 
     ball.Ball::moveX();
     ball.Ball::moveY();
