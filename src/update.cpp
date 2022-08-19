@@ -30,6 +30,7 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
             if (IsKeyPressed(KEY_ENTER)) {
                 currentScreen = GAMEPLAY;
                 game.Game::reset(ball, leftPaddle, rightPaddle);
+                game.Game::resetScores();
             }
         } break;
 

@@ -30,10 +30,20 @@ bool Game::isPaused() {
 
 void Game::gameInterrupt (Paddle& leftPaddle, Paddle& rightPaddle, const char* text, Audio& audio, Color color) {
     Game::pause();
-    audio.Audio::playBallFx();
+
+    int i {0};
+
     while (Game::isPaused() == true) {
+        rightPaddle.Paddle::updateXPosition();
         Game::Draw(leftPaddle, rightPaddle, text, color);
-    
+
+        while (i < 1) {
+            audio.Audio::playBallFx();
+            WaitTime(0.1f);
+            audio.Audio::playBallFx();
+            i++;
+        }
+
         //FIXME: ESC quits but produces segmentation fault
         if(WindowShouldClose()) {
             CloseWindow();
@@ -48,6 +58,7 @@ void Game::gameInterrupt (Paddle& leftPaddle, Paddle& rightPaddle, const char* t
 void Game::gameInterrupt (Paddle& leftPaddle, Paddle& rightPaddle, const char* text, Color color) {
     Game::pause();
     while (Game::isPaused() == true) {
+        rightPaddle.Paddle::updateXPosition();
         Game::Draw(leftPaddle, rightPaddle, text, color);
     
         //FIXME: ESC quits but produces segmentation fault
