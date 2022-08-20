@@ -7,19 +7,21 @@ MainMenu::MainMenu () {
 }
 
 void MainMenu::menuInput(Audio& audio) {
-    //handle wraparound
-    if (m_currentSelection > m_menu.size()) {
-        m_currentSelection = 0;
-    } else if (m_currentSelection < 0) {
-        m_currentSelection = m_menu.size();
-    }
- 
-    //handle keypresses
     if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S)) {
-            audio.Audio::playBallFx();
+        if (m_currentSelection > 1) {
+            m_currentSelection = 0;
+        } else {
             m_currentSelection++;
-        } else if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W)) {
             audio.Audio::playBallFx();
-            m_currentSelection--;
+        }
     }
+
+    if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W)) {
+            if (m_currentSelection < 1) {
+                m_currentSelection = 2;
+            } else {
+                    audio.Audio::playBallFx();
+                    m_currentSelection--;
+            }
+        }
 }
