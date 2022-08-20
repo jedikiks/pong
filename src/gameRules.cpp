@@ -25,6 +25,22 @@ void gameRules::checkCollision(Ball& ball, Paddle& paddle, Player player, Audio&
     }
 }
 
+void gameRules::checkCollision(Ball& ball, Paddle& paddle, Player player) {
+    if (CheckCollisionCircleRec(ball.Ball::getCenter(), ball.Ball::getRadius(), paddle.Paddle::getRectangle())) {
+        if (player == 1) {
+            if (ball.Ball::getSpeedX() < 0) {
+                ball.Ball::setSpeedX(ball.Ball::getSpeedX() * -1.1);
+                ball.Ball::setSpeedY((ball.Ball::getY() - paddle.Paddle::getY()) / (paddle.Paddle::getHeight() / 2) * ball.Ball::getSpeedX() * -1);
+            }
+        } else if (player == 2) {
+            if (ball.Ball::getSpeedX() > 0) {
+                ball.Ball::setSpeedX(ball.Ball::getSpeedX() * -1.1);
+                ball.Ball::setSpeedY((ball.Ball::getY() - paddle.Paddle::getY()) / (paddle.Paddle::getHeight() / 2) * ball.Ball::getSpeedX() * -1);
+            }
+        }
+    }
+}
+
 
 void gameRules::checkWinner(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, const char* winnerText) {
     if (ball.Ball::getX() > GetScreenWidth()) {

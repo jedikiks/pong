@@ -5,6 +5,16 @@
 #include "../include/screenManager.hpp"
 #include "../include/audio.hpp"
 #include <string>
+#include "../include/MainMenu.hpp"
+
+Color getRandomColor() {
+    switch(GetRandomValue(0, 1)) {
+        case (0): return PINK; break;
+        case (1): return BLUE; break;
+        //case (2): return GREEN; break;
+        default: break;
+    }
+}
 
 Game::Game () {
     m_ispaused = false;
@@ -100,13 +110,12 @@ void Game::reset(Ball& ball, Paddle& paddle1, Paddle& paddle2) {
     paddle2.Paddle::reset();
 }
 
-
-void Game::Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2, GameScreen currentScreen) {
+void Game::Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2, GameScreen currentScreen, MainMenu& mainMenu) {
     BeginDrawing();
         ClearBackground(BLACK);
         SetWindowState(FLAG_VSYNC_HINT);
         switch (currentScreen) {
-            case TITLE: {
+            case START: {
                 Game::drawPlayerScores();
                 ball.Ball::Draw();
                 paddle1.Paddle::Draw();
@@ -114,6 +123,34 @@ void Game::Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2, GameScreen current
                 DrawText("Pong", GetScreenWidth() / 2 - MeasureText("Pong", 90) / 2, GetScreenHeight() / 2 - 90, 90, WHITE);
                 DrawText("-- Press Enter to Start -- ", GetScreenWidth() / 2 - MeasureText("-- Press Enter to Start --", 20) / 2, GetScreenHeight() / 2 + 10, 20, WHITE);
             } break;
+            case TITLE: {
+                int posCount {};
+                DrawText("Pong", GetScreenWidth() / 2 - MeasureText("Pong", 90) / 2, GetScreenHeight() / 2 - 100, 90, WHITE);
+
+                for (int i {}; i < mainMenu.MainMenu::getMenu().size(); i++) {
+                    DrawText(mainMenu.MainMenu::getMenu()[i], GetScreenWidth() / 2 - MeasureText(mainMenu.MainMenu::getMenu()[i], 20) / 2, GetScreenHeight() / 2 + 40 + posCount, 20, WHITE);
+                    posCount += 40;
+                }
+
+                switch (mainMenu.MainMenu::getCurrentSelectionNum()) {
+                    case 1: {
+                        Rectangle miniBlue { GetScreenWidth() / 2.0f - MeasureText(mainMenu.MainMenu::getMenu()[0], 20.0f) / 2.0f, GetScreenHeight() / 2.0f + 60.0f , MeasureText(mainMenu.MainMenu::getMenu()[0], 20.0f) * 1.0f, 10.0f };
+                        DrawRectangleRec(miniBlue, getRandomColor());
+                    } break;
+                    case 2: {
+                        Rectangle miniBlue { GetScreenWidth() / 2.0f - MeasureText(mainMenu.MainMenu::getMenu()[1], 20.0f) / 2.0f, GetScreenHeight() / 2.0f + 100.0f , MeasureText(mainMenu.MainMenu::getMenu()[1], 20.0f) * 1.0f, 10.0f };
+                        DrawRectangleRec(miniBlue, getRandomColor());
+                    } break;
+                    case 3: {
+                        Rectangle miniBlue { GetScreenWidth() / 2.0f - MeasureText(mainMenu.MainMenu::getMenu()[2], 20.0f) / 2.0f, GetScreenHeight() / 2.0f + 140.0f , MeasureText(mainMenu.MainMenu::getMenu()[2], 20.0f) * 1.0f, 10.0f };
+                        DrawRectangleRec(miniBlue, getRandomColor());
+                    }
+
+
+
+                    
+                }
+            }
             case GAMEPLAY: {
                 Game::drawPlayerScores();
                 ball.Ball::Draw();

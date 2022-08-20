@@ -7,11 +7,13 @@
 #include "../include/update.hpp"
 #include "../include/ai.hpp"
 #include "../include/screenManager.hpp"
+#include <array>
+#include "../include/MainMenu.hpp"
 
 
-void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, AI& ai, GameScreen& currentScreen, Audio& audio, const char* winnerText) {
+void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, AI& ai, GameScreen& currentScreen, Audio& audio, MainMenu& mainMenu, const char* winnerText) {
     switch(currentScreen) {
-        case TITLE: {
+        case START: {
             rightPaddle.Paddle::updateXPosition();
 
             ball.Ball::moveX();
@@ -23,11 +25,38 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
             ai.AI::aiMoveDemo(rightPaddle, ball, 2);
             //rightPaddle.Paddle::keyPress(2);
 
-            gameRules::checkCollision(ball, rightPaddle, 2, audio);
-            gameRules::checkCollision(ball, leftPaddle, 1, audio);
+            gameRules::checkCollision(ball, rightPaddle, 2);
+            gameRules::checkCollision(ball, leftPaddle, 1);
             gameRules::checkWinner(game, ball, leftPaddle, rightPaddle);
 
             if (IsKeyPressed(KEY_ENTER)) {
+                currentScreen = TITLE;
+                game.Game::reset(ball, leftPaddle, rightPaddle);
+                game.Game::resetScores();
+            }
+        } break;
+
+        case TITLE: {
+            rightPaddle.Paddle::updateXPosition();
+
+            ball.Ball::moveX();
+            ball.Ball::moveY();
+
+            ball.Ball::checkYCollision();
+
+            ai.AI::aiMoveDemo(leftPaddle, ball, 1);
+            ai.AI::aiMoveDemo(rightPaddle, ball, 2);
+
+            gameRules::checkCollision(ball, rightPaddle, 2);
+            gameRules::checkCollision(ball, leftPaddle, 1);
+            gameRules::checkWinner(game, ball, leftPaddle, rightPaddle);
+
+            mainMenu.MainMenu::menuInput(audio);
+
+            switch(IsKeyPressed())
+            if (IsKeyPressed(KEY_BACKSPACE)) {
+                currentScreen = START;
+            } else if (IsKeyPressed(KEY_ENTER)) {
                 currentScreen = GAMEPLAY;
                 game.Game::reset(ball, leftPaddle, rightPaddle);
                 game.Game::resetScores();

@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "MainMenu.hpp"
 #include "raylib.h"
 #include "../include/types.hpp"
 #include "../include/ball.hpp"
@@ -25,7 +26,7 @@ class Game {
         void addScore(Player player);
         void subScore(Player player);
         void resetScores();
-        void Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2, GameScreen currentScreen);
+        void Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2, GameScreen currentScreen, MainMenu& mainMenu);
         void Draw(Paddle& paddle1, Paddle& paddle2, const char* text, Color color);
         void Draw();
         void drawPlayerScores();
