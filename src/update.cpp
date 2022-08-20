@@ -51,7 +51,7 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
             gameRules::checkCollision(ball, leftPaddle, 1);
             gameRules::checkWinner(game, ball, leftPaddle, rightPaddle);
 
-            mainMenu.Menu::menuInput(audio);
+            mainMenu.Menu::menu3Input(audio);
 
             switch(GetKeyPressed()) {
                 case KEY_BACKSPACE: {
@@ -60,6 +60,7 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
                     break;
                 }
                 case KEY_ENTER: {
+                    audio.Audio::playBallFx();
                     switch(mainMenu.Menu::getCurrentSelectionNum()) {
                         case(0): {
                             currentScreen = NEWGAME;
@@ -93,22 +94,25 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
             gameRules::checkCollision(ball, leftPaddle, 1);
             gameRules::checkWinner(game, ball, leftPaddle, rightPaddle);
 
-            newGameMenu.Menu::menuInput(audio);
+            newGameMenu.Menu::menu2Input(audio);
 
             switch(GetKeyPressed()) {
                 case KEY_BACKSPACE: {
                     currentScreen = TITLE;
                     newGameMenu.Menu::defaultSelect();
+                    audio.Audio::playBallFx();
                     break;
                 }
                 case KEY_ENTER: {
                     switch(newGameMenu.Menu::getCurrentSelectionNum()) {
+                    audio.Audio::playBallFx();
                         case(0): {
                             currentScreen = GAMEPLAY;
                             singlePlayer = true;
 
                             game.Game::reset(ball, leftPaddle, rightPaddle);
                             game.Game::resetScores();
+                            audio.Audio::playBallFx();
 
                             break;
                         }
@@ -118,6 +122,7 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
 
                             game.Game::reset(ball, leftPaddle, rightPaddle);
                             game.Game::resetScores();
+                            audio.Audio::playBallFx();
 
                             break;
                         }

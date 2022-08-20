@@ -26,7 +26,8 @@ class Menu {
             std::array<const char*, 2> getMenu2() { return m_menu2; }
             const char* getCurrentSelection2() { return m_menu2[m_currentSelection]; }
 
-            void menuInput(Audio& audio);
+            void menu3Input(Audio& audio);
+            void menu2Input(Audio& audio);
             void draw();
 };
 
