@@ -133,15 +133,15 @@ void Game::Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2, GameScreen current
                 }
 
                 switch (mainMenu.MainMenu::getCurrentSelectionNum()) {
-                    case 1: {
+                    case 0: {
                         Rectangle miniBlue { GetScreenWidth() / 2.0f - MeasureText(mainMenu.MainMenu::getMenu()[0], 20.0f) / 2.0f, GetScreenHeight() / 2.0f + 60.0f , MeasureText(mainMenu.MainMenu::getMenu()[0], 20.0f) * 1.0f, 10.0f };
                         DrawRectangleRec(miniBlue, getRandomColor());
                     } break;
-                    case 2: {
+                    case 1: {
                         Rectangle miniBlue { GetScreenWidth() / 2.0f - MeasureText(mainMenu.MainMenu::getMenu()[1], 20.0f) / 2.0f, GetScreenHeight() / 2.0f + 100.0f , MeasureText(mainMenu.MainMenu::getMenu()[1], 20.0f) * 1.0f, 10.0f };
                         DrawRectangleRec(miniBlue, getRandomColor());
                     } break;
-                    case 3: {
+                    case 2: {
                         Rectangle miniBlue { GetScreenWidth() / 2.0f - MeasureText(mainMenu.MainMenu::getMenu()[2], 20.0f) / 2.0f, GetScreenHeight() / 2.0f + 140.0f , MeasureText(mainMenu.MainMenu::getMenu()[2], 20.0f) * 1.0f, 10.0f };
                         DrawRectangleRec(miniBlue, getRandomColor());
                     }

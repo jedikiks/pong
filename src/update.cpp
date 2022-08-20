@@ -53,14 +53,32 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
 
             mainMenu.MainMenu::menuInput(audio);
 
-            switch(IsKeyPressed())
-            if (IsKeyPressed(KEY_BACKSPACE)) {
-                currentScreen = START;
-            } else if (IsKeyPressed(KEY_ENTER)) {
-                currentScreen = GAMEPLAY;
-                game.Game::reset(ball, leftPaddle, rightPaddle);
-                game.Game::resetScores();
+            switch(GetKeyPressed()) {
+                case KEY_BACKSPACE: currentScreen = START; break;
+                case KEY_ENTER: {
+                    switch(mainMenu.getCurrentSelectionNum()) {
+                        case(0): {
+                            currentScreen = GAMEPLAY;
+                            game.Game::reset(ball, leftPaddle, rightPaddle);
+                            game.Game::resetScores();
+                            break;
+                        }
+                        //case(1):
+                        case(2): {
+                            EndDrawing();
+                            CloseWindow();
+                            break;
+                        }
+                    }
+                }
+                default: break; 
             }
+
+            //} else if (IsKeyPressed(KEY_ENTER)) {
+            //    currentScreen = GAMEPLAY;
+            //    game.Game::reset(ball, leftPaddle, rightPaddle);
+            //    game.Game::resetScores();
+            //}
         } break;
 
         case GAMEPLAY: {

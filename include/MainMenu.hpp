@@ -8,7 +8,7 @@
 class MainMenu {
     private:
             std::array<const char*, 3> m_menu {"New Game", "Options", "Exit"};
-            int m_currentSelection {};
+            int m_currentSelection {0};
             Sound m_menuBeep {};
 
     public:

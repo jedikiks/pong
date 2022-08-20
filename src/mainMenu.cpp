@@ -15,11 +15,11 @@ void MainMenu::menuInput(Audio& audio) {
     }
  
     //handle keypresses
-    if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W)) {
-            audio.Audio::playBallFx();
-            m_currentSelection--;
-        } else if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S)) {
+    if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S)) {
             audio.Audio::playBallFx();
             m_currentSelection++;
+        } else if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W)) {
+            audio.Audio::playBallFx();
+            m_currentSelection--;
     }
 }
