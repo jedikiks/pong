@@ -8,10 +8,10 @@
 #include "../include/ai.hpp"
 #include "../include/screenManager.hpp"
 #include <array>
-#include "../include/MainMenu.hpp"
+#include "../include/Menu.hpp"
 
 
-void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, AI& ai, GameScreen& currentScreen, Audio& audio, MainMenu& mainMenu, const char* winnerText) {
+void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, AI& ai, GameScreen& currentScreen, Audio& audio, Menu& mainMenu, const char* winnerText) {
     switch(currentScreen) {
         case START: {
             rightPaddle.Paddle::updateXPosition();
@@ -51,16 +51,14 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
             gameRules::checkCollision(ball, leftPaddle, 1);
             gameRules::checkWinner(game, ball, leftPaddle, rightPaddle);
 
-            mainMenu.MainMenu::menuInput(audio);
+            mainMenu.Menu::menuInput(audio);
 
             switch(GetKeyPressed()) {
                 case KEY_BACKSPACE: currentScreen = START; break;
                 case KEY_ENTER: {
-                    switch(mainMenu.getCurrentSelectionNum()) {
+                    switch(mainMenu.Menu::getCurrentSelectionNum()) {
                         case(0): {
-                            currentScreen = GAMEPLAY;
-                            game.Game::reset(ball, leftPaddle, rightPaddle);
-                            game.Game::resetScores();
+                            currentScreen = NEWGAME;
                             break;
                         }
                         //case(1):
@@ -74,11 +72,33 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
                 default: break; 
             }
 
-            //} else if (IsKeyPressed(KEY_ENTER)) {
-            //    currentScreen = GAMEPLAY;
-            //    game.Game::reset(ball, leftPaddle, rightPaddle);
-            //    game.Game::resetScores();
-            //}
+        } break;
+
+        case NEWGAME: {
+            Menu newGameMenu {std::array<const char*, 2> {"Player vs CPU", "Player vs Player"}};
+
+            rightPaddle.Paddle::updateXPosition();
+
+            ball.Ball::moveX();
+            ball.Ball::moveY();
+
+            ball.Ball::checkYCollision();
+
+            ai.AI::aiMoveDemo(leftPaddle, ball, 1);
+            ai.AI::aiMoveDemo(rightPaddle, ball, 2);
+
+            gameRules::checkCollision(ball, rightPaddle, 2);
+            gameRules::checkCollision(ball, leftPaddle, 1);
+            gameRules::checkWinner(game, ball, leftPaddle, rightPaddle);
+
+            mainMenu.Menu::menuInput(audio);
+
+            if (IsKeyPressed(KEY_BACKSPACE)) {
+                currentScreen = TITLE;
+            }
+
+            mainMenu.Menu::menuInput(audio);
+
         } break;
 
         case GAMEPLAY: {

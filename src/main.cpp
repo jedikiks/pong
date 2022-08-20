@@ -20,7 +20,7 @@ int main() {
     GameScreen currentScreen = START;
     Game game {};
     Audio audio {LoadSound("../resources/audio/coin.wav")};
-    MainMenu mainMenu {};
+    Menu mainMenu {std::array<const char*, 3> {"New Game", "Options", "Exit"}};
     Ball ball {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f, 5.0f, 350.0f, 300.0f, WHITE};
     Paddle leftPaddle {20, GetScreenHeight() / 2.0f, 10, 100, 700.0f, BLUE};
     Paddle rightPaddle {GetScreenWidth() - 20.0f, GetScreenHeight() / 2.0f, 10, 100, 700.0f, PINK};

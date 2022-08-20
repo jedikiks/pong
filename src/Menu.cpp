@@ -1,12 +1,17 @@
 #include <array>
 #include "raylib.h"
-#include "../include/MainMenu.hpp"
+#include "../include/Menu.hpp"
 #include "../include/audio.hpp"
 
-MainMenu::MainMenu () {
+Menu::Menu (std::array<const char*, 3> menu3) {
+    m_menu3 = menu3;
 }
 
-void MainMenu::menuInput(Audio& audio) {
+Menu::Menu (std::array<const char*, 2> menu2) {
+    m_menu2 = menu2;
+}
+
+void Menu::menuInput(Audio& audio) {
     if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S)) {
         if (m_currentSelection > 1) {
             m_currentSelection = 0;

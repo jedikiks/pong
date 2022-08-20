@@ -8,10 +8,10 @@
 #include "../include/ai.hpp"
 #include "../include/screenManager.hpp"
 #include "../include/audio.hpp"
-#include "MainMenu.hpp"
+#include "../include/Menu.hpp"
 
 namespace Update{
-    void update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, AI& ai, GameScreen& currentScreen, Audio& audio, MainMenu& mainMenu, const char* winnerText);
+    void update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, AI& ai, GameScreen& currentScreen, Audio& audio, Menu& mainMenu, const char* winnerText);
 }
 
 #endif
