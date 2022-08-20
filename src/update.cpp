@@ -10,8 +10,9 @@
 #include <array>
 #include "../include/Menu.hpp"
 
+bool singlePlayer {};
 
-void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, AI& ai, GameScreen& currentScreen, Audio& audio, Menu& mainMenu, const char* winnerText) {
+void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, AI& ai, GameScreen& currentScreen, Audio& audio, Menu& mainMenu, Menu& newGameMenu, const char* winnerText) {
     switch(currentScreen) {
         case START: {
             rightPaddle.Paddle::updateXPosition();
@@ -31,8 +32,7 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
 
             if (IsKeyPressed(KEY_ENTER)) {
                 currentScreen = TITLE;
-                game.Game::reset(ball, leftPaddle, rightPaddle);
-                game.Game::resetScores();
+                audio.Audio::playBallFx();
             }
         } break;
 
@@ -54,7 +54,11 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
             mainMenu.Menu::menuInput(audio);
 
             switch(GetKeyPressed()) {
-                case KEY_BACKSPACE: currentScreen = START; break;
+                case KEY_BACKSPACE: {
+                    currentScreen = START;
+                    mainMenu.Menu::defaultSelect();
+                    break;
+                }
                 case KEY_ENTER: {
                     switch(mainMenu.Menu::getCurrentSelectionNum()) {
                         case(0): {
@@ -75,8 +79,6 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
         } break;
 
         case NEWGAME: {
-            Menu newGameMenu {std::array<const char*, 2> {"Player vs CPU", "Player vs Player"}};
-
             rightPaddle.Paddle::updateXPosition();
 
             ball.Ball::moveX();
@@ -91,13 +93,38 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
             gameRules::checkCollision(ball, leftPaddle, 1);
             gameRules::checkWinner(game, ball, leftPaddle, rightPaddle);
 
-            mainMenu.Menu::menuInput(audio);
+            newGameMenu.Menu::menuInput(audio);
 
-            if (IsKeyPressed(KEY_BACKSPACE)) {
-                currentScreen = TITLE;
+            switch(GetKeyPressed()) {
+                case KEY_BACKSPACE: {
+                    currentScreen = TITLE;
+                    newGameMenu.Menu::defaultSelect();
+                    break;
+                }
+                case KEY_ENTER: {
+                    switch(newGameMenu.Menu::getCurrentSelectionNum()) {
+                        case(0): {
+                            currentScreen = GAMEPLAY;
+                            singlePlayer = true;
+
+                            game.Game::reset(ball, leftPaddle, rightPaddle);
+                            game.Game::resetScores();
+
+                            break;
+                        }
+                        case(1): {
+                            currentScreen = GAMEPLAY;
+                            singlePlayer = false;
+
+                            game.Game::reset(ball, leftPaddle, rightPaddle);
+                            game.Game::resetScores();
+
+                            break;
+                        }
+                    }
+                }
+                default: break; 
             }
-
-            mainMenu.Menu::menuInput(audio);
 
         } break;
 
@@ -113,9 +140,18 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
 
             ball.Ball::checkYCollision();
 
-            leftPaddle.Paddle::keyPress(1);
-            ai.AI::aiMove(rightPaddle, ball);
-            //rightPaddle.Paddle::keyPress(2);
+            switch(singlePlayer) {
+                case true: {
+                    leftPaddle.Paddle::keyPress(1);
+                    ai.AI::aiMove(rightPaddle, ball);
+                } break;
+                case false: {
+                    leftPaddle.Paddle::keyPress(1);
+                    rightPaddle.Paddle::keyPress(2);
+                }
+
+                default: break;
+            }
 
             gameRules::checkCollision(ball, rightPaddle, 2, audio);
             gameRules::checkCollision(ball, leftPaddle, 1, audio);

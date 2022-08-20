@@ -18,18 +18,24 @@ int main() {
     InitAudioDevice();
 
     GameScreen currentScreen = START;
+
     Game game {};
+
     Audio audio {LoadSound("../resources/audio/coin.wav")};
+
     Menu mainMenu {std::array<const char*, 3> {"New Game", "Options", "Exit"}};
+    Menu newGameMenu {std::array<const char*, 2> {"Player vs CPU", "Player vs Player"}};
+    
     Ball ball {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f, 5.0f, 350.0f, 300.0f, WHITE};
     Paddle leftPaddle {20, GetScreenHeight() / 2.0f, 10, 100, 700.0f, BLUE};
     Paddle rightPaddle {GetScreenWidth() - 20.0f, GetScreenHeight() / 2.0f, 10, 100, 700.0f, PINK};
+
     AI ai {};
 
     while (!WindowShouldClose()) {
-        Update::update(game, ball, leftPaddle, rightPaddle, ai, currentScreen, audio, mainMenu, winnerText);
+        Update::update(game, ball, leftPaddle, rightPaddle, ai, currentScreen, audio, mainMenu, newGameMenu, winnerText);
 
-        game.Game::Draw(ball, leftPaddle, rightPaddle, currentScreen, mainMenu);
+        game.Game::Draw(ball, leftPaddle, rightPaddle, currentScreen, mainMenu, newGameMenu);
     }
 
     CloseWindow();

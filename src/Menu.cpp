@@ -15,6 +15,7 @@ void Menu::menuInput(Audio& audio) {
     if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S)) {
         if (m_currentSelection > 1) {
             m_currentSelection = 0;
+            audio.Audio::playBallFx();
         } else {
             m_currentSelection++;
             audio.Audio::playBallFx();
@@ -24,9 +25,10 @@ void Menu::menuInput(Audio& audio) {
     if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W)) {
             if (m_currentSelection < 1) {
                 m_currentSelection = 2;
+                audio.Audio::playBallFx();
             } else {
-                    audio.Audio::playBallFx();
-                    m_currentSelection--;
+                audio.Audio::playBallFx();
+                m_currentSelection--;
             }
         }
 }

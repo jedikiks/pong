@@ -26,7 +26,7 @@ class Game {
         void addScore(Player player);
         void subScore(Player player);
         void resetScores();
-        void Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2, GameScreen currentScreen, Menu& mainMenu);
+        void Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2, GameScreen currentScreen, Menu& mainMenu, Menu& newGameMenu);
         void Draw(Paddle& paddle1, Paddle& paddle2, const char* text, Color color);
         void Draw();
         void drawPlayerScores();
