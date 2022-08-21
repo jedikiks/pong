@@ -8,6 +8,7 @@
 #include "../include/ai.hpp"
 #include "../include/screenManager.hpp"
 #include "../include/audio.hpp"
+#include "../include/gameConfig.hpp"
 
 
 int main() {
@@ -25,7 +26,10 @@ int main() {
 
     Menu mainMenu {std::array<const char*, 3> {"New Game", "Options", "Exit"}};
     Menu newGameMenu {std::array<const char*, 2> {"Player vs CPU", "Player vs Player"}};
-    
+
+    GameConfig gameConfig {};    
+    gameConfig.GameConfig::defaultConfig();
+
     Ball ball {GetScreenWidth() / 2.0f, GetScreenHeight() / 2.0f, 5.0f, 350.0f, 300.0f, WHITE};
     Paddle leftPaddle {20, GetScreenHeight() / 2.0f, 10, 100, 700.0f, BLUE};
     Paddle rightPaddle {GetScreenWidth() - 20.0f, GetScreenHeight() / 2.0f, 10, 100, 700.0f, PINK};

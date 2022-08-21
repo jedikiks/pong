@@ -1,58 +1,53 @@
+#include "../include/gameConfig.hpp"
 #include <fstream>
+#include <ios>
+#include <raylib.h>
 #include <string>
-#include "raylib.h"
-#include "types.hpp"
+#include <array>
 
-#define GET_VARIABLE_NAME(Variable) (#Variable)
+std::array<unsigned char, 4> getColorArray (unsigned char& red, unsigned char& green, unsigned char& blue) {
+    // raylib sets alpha to 255 for each of their colors
+    return { red, green, blue, 255 };
+}
 
-class GameConfig {
-    private:
-            Color m_paddle1Color {};
-            Color m_paddle2Color {};
-            Color m_ballColor {};
-            Color m_backgroundColor {};
-            GameDifficulty m_gameDifficulty {};
-            KeyboardKey m_player1Up {};
-            KeyboardKey m_player1Down {};
-            KeyboardKey m_player2Up {};
-            KeyboardKey m_player2Down {};
-            bool m_soundEnable {};
+std::array<unsigned char, 4> myColor = getColorArray('255', 255, 255);
+//void GameConfig::getRandomColor();
+void GameConfig::defaultConfig() {
+    std::ofstream fileWrite { "../config/game.conf" };
+    std::string player1Color = "player1Color=" + 
+    std::string gameDifficultyDef = "gameDifficulty=" + std::to_string(m_def_gameDifficulty);
+    std::string player1UpDef = "player1Up=" + std::to_string(m_def_player1Up);
+    std::string player1DownDef = "player1Down=" + std::to_string(m_def_player1Down);
+    std::string player2UpDef = "player2Up=" + std::to_string(m_def_player2Up);
+    std::string player2DownDef = "player2Down=" + std::to_string(m_def_player2Down);
 
-            // defaults
-            Color m_def_paddle1Color {BLUE};
-            Color m_def_paddle2Color {PINK};
-            Color m_def_ballColor {WHITE};
-            Color m_def_backgroundColor {BLACK};
-            GameDifficulty m_def_gameDifficulty {HARD};
-            KeyboardKey m_def_player1Up {KEY_W};
-            KeyboardKey m_def_player1Down {KEY_S};
-            KeyboardKey m_def_player2Up {KEY_UP};
-            KeyboardKey m_def_player2Down {KEY_DOWN};
-            bool m_def_soundEnable {true};
+    fileWrite << gameDifficultyDef << '\n';
+    fileWrite << player1UpDef << '\n';
+    fileWrite << player1DownDef << '\n';
+    fileWrite << player2UpDef << '\n';
+    fileWrite << player2DownDef << '\n';
 
-   public:
-            void getRandomColor();
+    fileWrite.close();
+}
 
-            void saveChanges() {
-                std::ofstream configWrite { "../config/game.conf" };
+void GameConfig::saveChanges() {
+    std::ofstream configWrite { "../config/game.conf", std::ios_base::app };
+ 
+   // if no config file is found, make one:
+   if (!configWrite) {
+    defaultConfig();
+   }
+    
+   //configWrite << m_paddle1Color;
+   //configWrite << m_paddle2Color;
+   //configWrite << m_ballColor;
+   //configWrite << m_backgroundColor;
+   configWrite << m_gameDifficulty << '\n';
+   configWrite << m_player1Up << '\n';
+   configWrite << m_player1Down << '\n';
+   configWrite << m_player2Up << '\n';
+   configWrite << m_player2Down << '\n';
+   configWrite << m_soundEnable << '\n';
 
-               // if no config file is found, make one:
-               if (!configWrite) {
-                defaultConfig();
-               }
-                configWrite << GET_VARIABLE_NAME(m_paddle1Color) << '\n';
-                configWrite << GET_VARIABLE_NAME(m_paddle2Color) << '\n';
-                configWrite << GET_VARIABLE_NAME(m_ballColor) << '\n';
-                configWrite << GET_VARIABLE_NAME(m_backgroundColor) << '\n';
-                configWrite << GET_VARIABLE_NAME(GameDifficulty GET_VARIABLE_NAME(m_gameDifficulty)) << '\n';
-                configWrite << GET_VARIABLE_NAME(KeyboardKey m_player1Up) << '\n';
-                configWrite << GET_VARIABLE_NAME(KeyboardKey m_player1Down) << '\n';
-                configWrite << GET_VARIABLE_NAME(KeyboardKey m_player2Up) << '\n';
-                configWrite << GET_VARIABLE_NAME(KeyboardKey m_player2Down) << '\n';
-                configWrite << GET_VARIABLE_NAME(bool m_soundEnable) << '\n';
-
-            }
-
-            void defaultConfig() {
-            }
-};
+   configWrite.close();
+}

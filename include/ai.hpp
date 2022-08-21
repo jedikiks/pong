@@ -8,7 +8,7 @@
 
 class AI {
     private:
-            gameDifficulty m_difficulty;
+            GameDifficulty m_difficulty;
     public:
             AI () {
             }
