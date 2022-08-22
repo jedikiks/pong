@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "../include/paddle.hpp"
 #include "../include/types.hpp"
+#include "../include/gameConfig.hpp"
 
 Paddle::Paddle(float x, float y, int width, int height, float speed, Color color) {
     m_x = x;
