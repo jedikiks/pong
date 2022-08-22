@@ -90,15 +90,6 @@ void Game::addScore (Player player) {
     }
 }
 
-void Game::subScore (Player player) {
-    if (player == 1) {
-        m_player1_score--;
-    } else {
-        m_player2_score--;
-    }
-}
-
-
 void Game::resetScores () {
     m_player1_score = 0;
     m_player2_score = 0;
@@ -124,6 +115,11 @@ void Game::Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2, GameScreen current
                 DrawText("-- Press Enter to Start -- ", GetScreenWidth() / 2 - MeasureText("-- Press Enter to Start --", 20) / 2, GetScreenHeight() / 2 + 10, 20, WHITE);
             } break;
             case TITLE: {
+                Game::drawPlayerScores();
+                ball.Ball::Draw();
+                paddle1.Paddle::Draw();
+                paddle2.Paddle::Draw();
+
                 int posCount {};
                 DrawText("Pong", GetScreenWidth() / 2 - MeasureText("Pong", 90) / 2, GetScreenHeight() / 2 - 100, 90, WHITE);
 
@@ -148,6 +144,34 @@ void Game::Draw(Ball& ball, Paddle& paddle1, Paddle& paddle2, GameScreen current
 
                     default: break;
                 } 
+            } break;
+
+            case OPTIONS: {
+                Game::drawPlayerScores();
+                ball.Ball::Draw();
+                paddle1.Paddle::Draw();
+                paddle2.Paddle::Draw();
+
+                int optionsPositionX { GetScreenWidth() / 2 - MeasureText("Options", 90) / 2 };
+                int optionsPositionY { GetScreenHeight() / 2 - 300 };
+
+                Vector2 startLinePos { static_cast<float>(optionsPositionX) - 25.0f, static_cast<float>(optionsPositionY) * 6.0f };
+                Vector2 endLinePos { static_cast<float>(optionsPositionX) * 2.425f + 30.0f, static_cast<float>(optionsPositionY) * 6.0f };
+
+                int keyboardLayoutPosX { 40 };
+                int keyboardLayoutPosY { optionsPositionY + 150 };
+
+                int player1UpPosX { keyboardLayoutPosX + 40 };
+                int player1UpPosY { keyboardLayoutPosY + 50 };
+
+                DrawText("Options", optionsPositionX, optionsPositionY, 90, WHITE);
+                DrawLineEx(startLinePos, endLinePos, 12.0f, BLUE);
+                DrawText("Player 1:", keyboardLayoutPosX, keyboardLayoutPosY, 40, WHITE);
+                DrawText("Up:", keyboardLayoutPosX + 40, keyboardLayoutPosY + 50, 25, WHITE);
+                DrawText("W", keyboardLayoutPosX + 300, keyboardLayoutPosY + 50, 25, WHITE);
+                DrawText("Down:                 S", player1UpPosX, player1UpPosY + 40, 25, WHITE);
+
+
             } break;
 
             case NEWGAME: {

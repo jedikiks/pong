@@ -54,3 +54,6 @@ void Menu::menu2Input(Audio& audio) {
             }
         }
 }
+
+//void Menu::optionsInput(Audio& audio) {
+//}

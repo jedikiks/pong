@@ -66,7 +66,10 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
                             currentScreen = NEWGAME;
                             break;
                         }
-                        //case(1):
+                        case(1): {
+                                     currentScreen = OPTIONS;
+                                     break;
+                                 }
                         case(2): {
                             EndDrawing();
                             CloseWindow();
@@ -123,6 +126,47 @@ void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPad
                             game.Game::reset(ball, leftPaddle, rightPaddle);
                             game.Game::resetScores();
                             audio.Audio::playBallFx();
+
+                            break;
+                        }
+                    }
+                }
+                default: break; 
+            }
+
+        } break;
+
+        case OPTIONS: {
+            rightPaddle.Paddle::updateXPosition();
+
+            ball.Ball::moveX();
+            ball.Ball::moveY();
+
+            ball.Ball::checkYCollision();
+
+            ai.AI::aiMoveDemo(leftPaddle, ball, 1);
+            ai.AI::aiMoveDemo(rightPaddle, ball, 2);
+
+            gameRules::checkCollision(ball, rightPaddle, 2);
+            gameRules::checkCollision(ball, leftPaddle, 1);
+            gameRules::checkWinner(game, ball, leftPaddle, rightPaddle);
+
+            //optionsMenu.Menu::optionsInput(audio);
+
+            switch(GetKeyPressed()) {
+                case KEY_BACKSPACE: {
+                    currentScreen = TITLE;
+                    newGameMenu.Menu::defaultSelect();
+                    audio.Audio::playBallFx();
+                    break;
+                }
+                case KEY_ENTER: {
+                    switch(newGameMenu.Menu::getCurrentSelectionNum()) {
+                    audio.Audio::playBallFx();
+                        case(0): {
+                            break;
+                        }
+                        case(1): {
 
                             break;
                         }
