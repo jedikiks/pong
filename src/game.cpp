@@ -30,20 +30,20 @@ void Game::stopGame() {
 void Game::gameInterrupt (GameData* gameData, const char* text, const bool& playSound, Color color) {
     Game::pause();
 
+    bool hasBeeped {false};
     while (Game::isPaused() == true) {
         gameData->rightPaddle.Paddle::updateXPosition();
         Draw::draw(gameData, text, color);
 
         if (playSound == true) {
-            int i {};
-            while (i < 1) {
+            while (!hasBeeped) {
                 gameData->audio.Audio::playBallFx();
                 WaitTime(0.1f);
                 gameData->audio.Audio::playBallFx();
-                i++;
+                hasBeeped = true;
             }
         }
-
+            
         //FIXME: ESC quits but produces segmentation fault
         Game::stopGame();
 
