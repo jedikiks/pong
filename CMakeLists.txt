@@ -34,6 +34,8 @@ add_executable(${PROJECT_NAME} src/main.cpp
                                src/ai.cpp
                                src/audio.cpp
                                src/Menu.cpp
+                               src/gameInit.cpp
+                               src/draw.cpp
 )
 target_include_directories(${PROJECT_NAME} BEFORE PRIVATE include/)
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)

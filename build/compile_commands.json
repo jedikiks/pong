@@ -1,0 +1,57 @@
+[
+{
+  "directory": "/home/cmvogeli/git/jedikiks/pong/build",
+  "command": "/usr/bin/c++ -DASSETS_PATH=\\\"/home/cmvogeli/git/jedikiks/pong/assets/\\\" -I/home/cmvogeli/git/jedikiks/pong/include -std=gnu++11 -o CMakeFiles/pong.dir/src/main.cpp.o -c /home/cmvogeli/git/jedikiks/pong/src/main.cpp",
+  "file": "/home/cmvogeli/git/jedikiks/pong/src/main.cpp"
+},
+{
+  "directory": "/home/cmvogeli/git/jedikiks/pong/build",
+  "command": "/usr/bin/c++ -DASSETS_PATH=\\\"/home/cmvogeli/git/jedikiks/pong/assets/\\\" -I/home/cmvogeli/git/jedikiks/pong/include -std=gnu++11 -o CMakeFiles/pong.dir/src/paddle.cpp.o -c /home/cmvogeli/git/jedikiks/pong/src/paddle.cpp",
+  "file": "/home/cmvogeli/git/jedikiks/pong/src/paddle.cpp"
+},
+{
+  "directory": "/home/cmvogeli/git/jedikiks/pong/build",
+  "command": "/usr/bin/c++ -DASSETS_PATH=\\\"/home/cmvogeli/git/jedikiks/pong/assets/\\\" -I/home/cmvogeli/git/jedikiks/pong/include -std=gnu++11 -o CMakeFiles/pong.dir/src/ball.cpp.o -c /home/cmvogeli/git/jedikiks/pong/src/ball.cpp",
+  "file": "/home/cmvogeli/git/jedikiks/pong/src/ball.cpp"
+},
+{
+  "directory": "/home/cmvogeli/git/jedikiks/pong/build",
+  "command": "/usr/bin/c++ -DASSETS_PATH=\\\"/home/cmvogeli/git/jedikiks/pong/assets/\\\" -I/home/cmvogeli/git/jedikiks/pong/include -std=gnu++11 -o CMakeFiles/pong.dir/src/game.cpp.o -c /home/cmvogeli/git/jedikiks/pong/src/game.cpp",
+  "file": "/home/cmvogeli/git/jedikiks/pong/src/game.cpp"
+},
+{
+  "directory": "/home/cmvogeli/git/jedikiks/pong/build",
+  "command": "/usr/bin/c++ -DASSETS_PATH=\\\"/home/cmvogeli/git/jedikiks/pong/assets/\\\" -I/home/cmvogeli/git/jedikiks/pong/include -std=gnu++11 -o CMakeFiles/pong.dir/src/gameRules.cpp.o -c /home/cmvogeli/git/jedikiks/pong/src/gameRules.cpp",
+  "file": "/home/cmvogeli/git/jedikiks/pong/src/gameRules.cpp"
+},
+{
+  "directory": "/home/cmvogeli/git/jedikiks/pong/build",
+  "command": "/usr/bin/c++ -DASSETS_PATH=\\\"/home/cmvogeli/git/jedikiks/pong/assets/\\\" -I/home/cmvogeli/git/jedikiks/pong/include -std=gnu++11 -o CMakeFiles/pong.dir/src/update.cpp.o -c /home/cmvogeli/git/jedikiks/pong/src/update.cpp",
+  "file": "/home/cmvogeli/git/jedikiks/pong/src/update.cpp"
+},
+{
+  "directory": "/home/cmvogeli/git/jedikiks/pong/build",
+  "command": "/usr/bin/c++ -DASSETS_PATH=\\\"/home/cmvogeli/git/jedikiks/pong/assets/\\\" -I/home/cmvogeli/git/jedikiks/pong/include -std=gnu++11 -o CMakeFiles/pong.dir/src/ai.cpp.o -c /home/cmvogeli/git/jedikiks/pong/src/ai.cpp",
+  "file": "/home/cmvogeli/git/jedikiks/pong/src/ai.cpp"
+},
+{
+  "directory": "/home/cmvogeli/git/jedikiks/pong/build",
+  "command": "/usr/bin/c++ -DASSETS_PATH=\\\"/home/cmvogeli/git/jedikiks/pong/assets/\\\" -I/home/cmvogeli/git/jedikiks/pong/include -std=gnu++11 -o CMakeFiles/pong.dir/src/audio.cpp.o -c /home/cmvogeli/git/jedikiks/pong/src/audio.cpp",
+  "file": "/home/cmvogeli/git/jedikiks/pong/src/audio.cpp"
+},
+{
+  "directory": "/home/cmvogeli/git/jedikiks/pong/build",
+  "command": "/usr/bin/c++ -DASSETS_PATH=\\\"/home/cmvogeli/git/jedikiks/pong/assets/\\\" -I/home/cmvogeli/git/jedikiks/pong/include -std=gnu++11 -o CMakeFiles/pong.dir/src/Menu.cpp.o -c /home/cmvogeli/git/jedikiks/pong/src/Menu.cpp",
+  "file": "/home/cmvogeli/git/jedikiks/pong/src/Menu.cpp"
+},
+{
+  "directory": "/home/cmvogeli/git/jedikiks/pong/build",
+  "command": "/usr/bin/c++ -DASSETS_PATH=\\\"/home/cmvogeli/git/jedikiks/pong/assets/\\\" -I/home/cmvogeli/git/jedikiks/pong/include -std=gnu++11 -o CMakeFiles/pong.dir/src/gameInit.cpp.o -c /home/cmvogeli/git/jedikiks/pong/src/gameInit.cpp",
+  "file": "/home/cmvogeli/git/jedikiks/pong/src/gameInit.cpp"
+},
+{
+  "directory": "/home/cmvogeli/git/jedikiks/pong/build",
+  "command": "/usr/bin/c++ -DASSETS_PATH=\\\"/home/cmvogeli/git/jedikiks/pong/assets/\\\" -I/home/cmvogeli/git/jedikiks/pong/include -std=gnu++11 -o CMakeFiles/pong.dir/src/draw.cpp.o -c /home/cmvogeli/git/jedikiks/pong/src/draw.cpp",
+  "file": "/home/cmvogeli/git/jedikiks/pong/src/draw.cpp"
+}
+]

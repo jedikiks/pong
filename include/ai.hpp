@@ -7,8 +7,6 @@
 #include "../include/types.hpp"
 
 class AI {
-    private:
-            gameDifficulty m_difficulty;
     public:
             AI () {
             }

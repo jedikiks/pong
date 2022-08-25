@@ -31,7 +31,8 @@ class Paddle {
         void Draw();
         void keyPress(Player player); 
         void updateXPosition() { m_x = (GetScreenWidth() - 20); }
-	void checkBounds();
+    	void checkBounds();
+        void movePaddleY (const KeyboardKey& key0, const KeyboardKey key1);
 
 };
 

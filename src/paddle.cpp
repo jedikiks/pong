@@ -2,6 +2,7 @@
 #include "../include/paddle.hpp"
 #include "../include/types.hpp"
 
+
 Paddle::Paddle(float x, float y, int width, int height, float speed, Color color) {
     m_x = x;
     m_y = y;
@@ -13,19 +14,20 @@ Paddle::Paddle(float x, float y, int width, int height, float speed, Color color
     m_color = color;
 }
 
+void Paddle::movePaddleY (const KeyboardKey& key0, const KeyboardKey key1) {
+    if (IsKeyDown(key0)) {
+        m_y -= m_speed * GetFrameTime();
+    } else if (IsKeyDown(key1)) {
+        m_y += m_speed * GetFrameTime();
+    }
+}
+
 void Paddle::keyPress(Player player) {
         if (player == 1) {
-            if (IsKeyDown(KEY_W)) {
-                m_y -= m_speed * GetFrameTime();
-            } else if (IsKeyDown(KEY_S)) {
-                m_y += m_speed * GetFrameTime();
-            }
+            Paddle::movePaddleY(KEY_W, KEY_S);
         } else if (player == 2) {
-            if (IsKeyDown(KEY_UP)) {
-                m_y -= m_speed * GetFrameTime();
-            } else if (IsKeyDown(KEY_DOWN)) {
-                m_y += m_speed * GetFrameTime();
-            }
+            //TODO: put movepaddley function here
+            Paddle::movePaddleY(KEY_UP, KEY_DOWN);
         }
 }
 

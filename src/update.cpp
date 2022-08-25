@@ -1,174 +1,123 @@
-#include "raylib.h"
-#include "../include/ball.hpp"
-#include "../include/paddle.hpp"
-#include "../include/types.hpp"
-#include "../include/game.hpp"
-#include "../include/gameRules.hpp"
 #include "../include/update.hpp"
-#include "../include/ai.hpp"
-#include "../include/screenManager.hpp"
-#include <array>
-#include "../include/Menu.hpp"
 
 bool singlePlayer {};
 
-void Update::update(Game& game, Ball& ball, Paddle& leftPaddle, Paddle& rightPaddle, AI& ai, GameScreen& currentScreen, Audio& audio, Menu& mainMenu, Menu& newGameMenu, const char* winnerText) {
-    switch(currentScreen) {
-        case START: {
-            rightPaddle.Paddle::updateXPosition();
+void noPlayerUpdateData(GameData* gameData, bool winBanner) {
+    gameData->rightPaddle.Paddle::updateXPosition();
+    
+    gameData->rightPaddle.Paddle::checkBounds();
+    gameData->leftPaddle.Paddle::checkBounds();
+    
+    gameData->ball.Ball::moveX();
+    gameData->ball.Ball::moveY();
+    
+    gameData->ball.Ball::checkYCollision();
 
-	    rightPaddle.Paddle::checkBounds();
-	    leftPaddle.Paddle::checkBounds();
+    gameRules::checkCollision(&gameData->ball, &gameData->rightPaddle, 2, &gameData->audio, false);
+    gameRules::checkCollision(&gameData->ball, &gameData->leftPaddle, 1, &gameData->audio, false);
+    gameRules::checkWinner(gameData, gameData->winnerText, winBanner, 1);
+    gameRules::checkWinner(gameData, gameData->winnerText, winBanner, 2);
 
-            ball.Ball::moveX();
-            ball.Ball::moveY();
+}
 
-            ball.Ball::checkYCollision();
+// Update the game data during the demo
+void demoUpdateData(GameData* gameData) {
+    noPlayerUpdateData(gameData, false);
+    gameData->ai.AI::aiMoveDemo(gameData->leftPaddle, gameData->ball, 1);
+    gameData->ai.AI::aiMoveDemo(gameData->rightPaddle, gameData->ball, 2);
+}
 
-            ai.AI::aiMoveDemo(leftPaddle, ball, 1);
-            ai.AI::aiMoveDemo(rightPaddle, ball, 2);
-            //rightPaddle.Paddle::keyPress(2);
-
-            gameRules::checkCollision(ball, rightPaddle, 2);
-            gameRules::checkCollision(ball, leftPaddle, 1);
-            gameRules::checkWinner(game, ball, leftPaddle, rightPaddle);
-
-            if (IsKeyPressed(KEY_ENTER)) {
-                currentScreen = TITLE;
-                audio.Audio::playBallFx();
-            }
-        } break;
-
-        case TITLE: {
-            rightPaddle.Paddle::updateXPosition();
-
-	    rightPaddle.Paddle::checkBounds();
-	    leftPaddle.Paddle::checkBounds();
-
-            ball.Ball::moveX();
-            ball.Ball::moveY();
-
-            ball.Ball::checkYCollision();
-
-            ai.AI::aiMoveDemo(leftPaddle, ball, 1);
-            ai.AI::aiMoveDemo(rightPaddle, ball, 2);
-
-            gameRules::checkCollision(ball, rightPaddle, 2);
-            gameRules::checkCollision(ball, leftPaddle, 1);
-            gameRules::checkWinner(game, ball, leftPaddle, rightPaddle);
-
-            mainMenu.Menu::menuInput(audio);
-
-            switch(GetKeyPressed()) {
-                case KEY_BACKSPACE: {
-                    currentScreen = START;
-                    mainMenu.Menu::defaultSelect();
-                    break;
-                }
-                case KEY_ENTER: {
-                    switch(mainMenu.Menu::getCurrentSelectionNum()) {
-                        case(0): {
-                            currentScreen = NEWGAME;
-                            break;
-                        }
-                        case(1): {
-                            EndDrawing();
-                            CloseWindow();
-                            break;
-                        }
-                    }
-                }
-                default: break; 
-            }
-
-        } break;
-
-        case NEWGAME: {
-            rightPaddle.Paddle::updateXPosition();
-
-	    rightPaddle.Paddle::checkBounds();
-	    leftPaddle.Paddle::checkBounds();
-
-            ball.Ball::moveX();
-            ball.Ball::moveY();
-
-            ball.Ball::checkYCollision();
-
-            ai.AI::aiMoveDemo(leftPaddle, ball, 1);
-            ai.AI::aiMoveDemo(rightPaddle, ball, 2);
-
-            gameRules::checkCollision(ball, rightPaddle, 2);
-            gameRules::checkCollision(ball, leftPaddle, 1);
-            gameRules::checkWinner(game, ball, leftPaddle, rightPaddle);
-
-            newGameMenu.Menu::menuInput(audio);
-
-            switch(GetKeyPressed()) {
-                case KEY_BACKSPACE: {
-                    currentScreen = TITLE;
-                    newGameMenu.Menu::defaultSelect();
-                    break;
-                }
-                case KEY_ENTER: {
-                    switch(newGameMenu.Menu::getCurrentSelectionNum()) {
-                        case(0): {
-                            currentScreen = GAMEPLAY;
-                            singlePlayer = true;
-
-                            game.Game::reset(ball, leftPaddle, rightPaddle);
-                            game.Game::resetScores();
-
-                            break;
-                        }
-                        case(1): {
-                            currentScreen = GAMEPLAY;
-                            singlePlayer = false;
-
-                            game.Game::reset(ball, leftPaddle, rightPaddle);
-                            game.Game::resetScores();
-
-                            break;
-                        }
-                    }
-                }
-                default: break; 
-            }
-
-        } break;
-
-        case GAMEPLAY: {
-            if (IsKeyPressed(KEY_TAB) && game.Game::isPaused() == false) {
-                game.Game::gameInterrupt(leftPaddle, rightPaddle, "Paused", audio, YELLOW); 
-            }
-
-            rightPaddle.Paddle::updateXPosition();
-
-	    rightPaddle.Paddle::checkBounds();
-	    leftPaddle.Paddle::checkBounds();
-
-            ball.Ball::moveX();
-            ball.Ball::moveY();
-
-            ball.Ball::checkYCollision();
-
-            switch(singlePlayer) {
-                case true: {
-                    leftPaddle.Paddle::keyPress(1);
-                    ai.AI::aiMove(rightPaddle, ball);
-                } break;
-                case false: {
-                    leftPaddle.Paddle::keyPress(1);
-                    rightPaddle.Paddle::keyPress(2);
-                }
-
-                default: break;
-            }
-
-            gameRules::checkCollision(ball, rightPaddle, 2, audio);
-            gameRules::checkCollision(ball, leftPaddle, 1, audio);
-
-            gameRules::checkWinner(game, ball, leftPaddle, rightPaddle, winnerText);
-        } break;
-        default: break;
+void playerUpdateData(GameData* gameData) {
+    if (singlePlayer) {
+            gameData->leftPaddle.Paddle::keyPress(1);
+            gameData->ai.AI::aiMove(gameData->rightPaddle, gameData->ball);
+    } else {
+           gameData->leftPaddle.Paddle::keyPress(1);
+           gameData->rightPaddle.Paddle::keyPress(2);
     }
+}
+
+// The main update function
+void Update::update(GameData* gameData) {
+        // Updates occur depending on what state we're on 
+        switch(gameData->currentScreen) {
+            case START: {
+                demoUpdateData(gameData);
+
+                if (IsKeyPressed(KEY_ENTER)) {
+                    gameData->currentScreen = TITLE;
+                    gameData->audio.Audio::playBallFx();
+                }
+
+            } break; 
+    
+            case TITLE: {
+                demoUpdateData(gameData);
+                
+                gameData->mainMenu.Menu::menuInput(gameData->audio);
+    
+                switch(GetKeyPressed()) {
+                    case KEY_BACKSPACE: {
+                        gameData->currentScreen = START;
+                        gameData->audio.Audio::playBallFx();
+                        gameData->mainMenu.Menu::defaultSelect();
+                    } break;
+
+                    case KEY_ENTER: {
+                        switch(gameData->mainMenu.Menu::getCurrentSelectionNum()) {
+                            case(0): {
+                                gameData->currentScreen = NEWGAME;
+                                gameData->audio.Audio::playBallFx();
+                            } break;
+                            case(1): {
+                                gameData->audio.Audio::playBallFx();
+                                EndDrawing();
+                                CloseWindow();
+                            }break;
+                        }
+                    } break;
+                }
+            } break;
+    
+            case NEWGAME: {
+                demoUpdateData(gameData);
+
+                gameData->newGameMenu.Menu::menuInput(gameData->audio);
+    
+                switch(GetKeyPressed()) {
+                    case KEY_BACKSPACE: {
+                       gameData->currentScreen = TITLE;
+                       gameData->newGameMenu.Menu::defaultSelect();
+                    } break;
+
+                    case KEY_ENTER: {
+                        switch(gameData->newGameMenu.Menu::getCurrentSelectionNum()) {
+
+                            // for singleplayer
+                            case(0): {
+                               gameData->currentScreen = GAMEPLAY;
+                               singlePlayer = true;
+                               gameData->game.Game::gameReset(gameData->ball, gameData->leftPaddle, gameData->rightPaddle);
+                            } break;
+
+                            // for multiplayer
+                            case(1): {
+                                gameData->currentScreen = GAMEPLAY;
+                                singlePlayer = false;
+                                gameData->game.Game::gameReset(gameData->ball, gameData->leftPaddle, gameData->rightPaddle);
+
+                            } break;
+                        }
+                    } break;
+                }
+            } break;
+    
+            case GAMEPLAY: {
+                if (IsKeyPressed(KEY_TAB) && gameData->game.Game::isPaused() == false) {
+                    gameData->game.Game::gameInterrupt(gameData, "Paused",  true, YELLOW); 
+                }
+                noPlayerUpdateData(gameData, true);
+                playerUpdateData(gameData);
+            } break;
+        }
 }   
