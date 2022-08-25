@@ -1,3 +1,0 @@
-/home/cmvogeli/git/jedikiks/pong/build/CMakeFiles/pong.dir
-/home/cmvogeli/git/jedikiks/pong/build/CMakeFiles/edit_cache.dir
-/home/cmvogeli/git/jedikiks/pong/build/CMakeFiles/rebuild_cache.dir
